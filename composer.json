@@ -1,9 +1,9 @@
 {
-  "name": "jeffreyway/demo",
+  "name": "ticket-system",
   "authors": [
     {
       "name": "Oscar Loaiza",
-      "email": "oloaizc@experiencia.emtelco.com.co"
+      "email": "esteban.loaiza@sossolucionesinformaticas.com"
     }
   ],
   "require": {
