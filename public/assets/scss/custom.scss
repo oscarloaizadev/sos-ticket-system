@@ -1,0 +1,83 @@
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+$primary: #51468a;
+$secondary: #fb4514;
+$yellow: #95d50b;
+$orange: #ff8812;
+$lavender: #a259fe;
+$green: #09cf82;
+$gray: #655f67;
+$ticket-uncategorized: #b0bec5; // Uncategorized
+$ticket-in-progress: #64b5f6; // In Progress
+$ticket-pending: #ffd54f; // Pending
+$ticket-resolved: #81c784; // Resolved
+$ticket-closed: #a1887f; // Closed
+$ticket-denied: #e57373; // Denied
+@import "typography";
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+// 4. Include any default map overrides here
+
+$custom-colors: (
+    "yellow": $yellow,
+    "orange": $orange,
+    "lavender": $lavender,
+    "green": $green,
+    "gray": $gray,
+    "ticket-uncategorized": $ticket-uncategorized,
+    "ticket-in-progress": $ticket-in-progress,
+    "ticket-pending": $ticket-pending,
+    "ticket-resolved": $ticket-resolved,
+    "ticket-closed": $ticket-closed,
+    "ticket-denied": $ticket-denied
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// 5. Include remainder of required parts
+@import "maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "../../../node_modules/bootstrap/scss/utilities";
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
+@import "../../../node_modules/bootstrap/scss/containers";
+@import "../../../node_modules/bootstrap/scss/grid";
+@import "../../../node_modules/bootstrap/scss/tables";
+@import "../../../node_modules/bootstrap/scss/forms";
+@import "buttons";
+@import "../../../node_modules/bootstrap/scss/transitions";
+@import "../../../node_modules/bootstrap/scss/dropdown";
+@import "../../../node_modules/bootstrap/scss/button-group";
+@import "../../../node_modules/bootstrap/scss/nav";
+@import "../../../node_modules/bootstrap/scss/navbar";
+@import "../../../node_modules/bootstrap/scss/card";
+@import "../../../node_modules/bootstrap/scss/accordion";
+@import "../../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../../node_modules/bootstrap/scss/pagination";
+@import "../../../node_modules/bootstrap/scss/badge";
+@import "../../../node_modules/bootstrap/scss/alert";
+@import "../../../node_modules/bootstrap/scss/progress";
+@import "../../../node_modules/bootstrap/scss/list-group";
+@import "../../../node_modules/bootstrap/scss/close";
+@import "../../../node_modules/bootstrap/scss/toasts";
+@import "../../../node_modules/bootstrap/scss/modal";
+@import "../../../node_modules/bootstrap/scss/tooltip";
+@import "../../../node_modules/bootstrap/scss/popover";
+@import "../../../node_modules/bootstrap/scss/carousel";
+@import "../../../node_modules/bootstrap/scss/spinners";
+@import "../../../node_modules/bootstrap/scss/offcanvas";
+@import "../../../node_modules/bootstrap/scss/placeholders";
+@import "../../../node_modules/bootstrap/scss/helpers";
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../../../node_modules/bootstrap/scss/utilities/api";
+
+// 8. Add additional custom code here

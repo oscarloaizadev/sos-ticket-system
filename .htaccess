@@ -1,0 +1,5 @@
+# /demo/.htaccess
+RewriteEngine On
+
+# Rewrite requests to public folder
+RewriteRule (.*) public/$1 [L]

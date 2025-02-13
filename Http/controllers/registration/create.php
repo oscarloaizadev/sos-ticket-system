@@ -1,0 +1,8 @@
+<?php
+
+use Core\Session;
+
+view('registration/create.view.php', [
+    'heading' => 'Regístrate para poder acceder al sitio',
+    'errors'  => Session::get('errors'),
+]);
