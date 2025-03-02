@@ -1,0 +1,193 @@
+<?php use Core\Session; ?>
+<?php
+$ticketTypes = HELPER_getArray('translations', 'type');
+$ticketCategories = HELPER_getArray('translations', 'category');
+$ticketPriorities = HELPER_getArray('translations', 'priority');
+?>
+
+<nav class="navbar bg-primary shadow-sm text-white">
+  <div
+    class="container px-3 my-2 my-xl-3 navbar-nav d-flex gap-2 flex-row align-items-center justify-content-between">
+    <div class="d-inline-flex gap-1">
+        <?php require base_path('views/partials/offcanvas.php') ?>
+      <a class="btn rounded-pill p-2 fs-7 <?= urlIs(urlRedirect("/")) ? 'btn-primary shadow-sm'
+          : 'btn-light' ?> d-inline-flex gap-1"
+         href="<?= urlRedirect("/") ?>">
+        <span class="material-symbols-rounded fs-5 align-content-center">home</span>
+          <?= urlIs(urlRedirect("/")) ? 'Inicio' : '' ?>
+      </a>
+      <a
+        class="btn rounded-pill p-2 fs-7 <?= urlIs(urlRedirect("/ticket/new")) ? 'btn-primary shadow-sm'
+            : 'btn-outline-primary' ?> d-inline-flex gap-1"
+        href="<?= urlRedirect("/ticket/new") ?>">
+        <span class="material-symbols-rounded fs-5 align-content-center">add_circle</span>
+        Nuevo ticket
+      </a>
+      <button
+        class="btn rounded-pill p-2 fs-7 <?= urlIs(urlRedirect("/ticket/sdf")) ? 'btn-primary shadow-sm'
+            : 'btn-light' ?> d-inline-flex gap-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <span class="material-symbols-rounded fs-5 align-content-center">manage_search</span>
+      </button>
+    </div>
+    <div class="d-inline-flex gap-1">
+        <?php if ($_SESSION['user'] ?? false) : ?>
+          <form action="<?= urlRedirect("/logout") ?>" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-light d-inline-flex gap-1 align-items-center">
+              <span class="material-symbols-rounded fs-5 align-content-center">logout</span>
+            </button>
+          </form>
+        
+        <?php else : ?>
+          <a class="btn <?= urlIs(urlRedirect("/login")) ? 'btn-primary shadow-sm'
+              : 'btn-light' ?> d-inline-flex gap-1"
+             href="<?= urlRedirect("/login") ?>">
+            <span class="material-symbols-rounded fs-5 align-content-center">login</span>
+            Iniciar sesión
+          </a>
+
+          <a class="btn <?= urlIs(urlRedirect("/register")) ? 'btn-primary shadow-sm'
+              : 'btn-light' ?> d-inline-flex gap-1"
+             href="<?= urlRedirect("/register") ?>">
+            <span class="material-symbols-rounded fs-5 align-content-center">person</span>
+            Crear una cuenta
+          </a>
+        <?php endif; ?>
+    </div>
+  </div>
+</nav>
+
+<script>
+  $(document).ready(function () {
+    const form = $('#search_form');
+
+    function getFiltersFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        type: urlParams.get('type') || 'default',
+        category: urlParams.get('category') || 'default',
+        status: urlParams.get('status') || 'default',
+        priority: urlParams.get('priority') || 'default',
+        owner: urlParams.get('owner') || 'default',
+      };
+    }
+
+    function loadFilters() {
+      const urlFilters = getFiltersFromURL();
+      let savedFilters = JSON.parse(localStorage.getItem('ticketFilters')) || {};
+
+      $.each(savedFilters, function (key, value) {
+        if (value) {
+          const input = $(`input[name="${key}"][value="${value}"]`);
+          input.prop('checked', true);
+          input.class('btn-primary');
+        }
+      });
+
+      localStorage.setItem('ticketFilters', JSON.stringify(savedFilters));
+    }
+
+    // Guardar filtros en localStorage y hacer petición AJAX
+    function saveFilters() {
+      const filters = {
+        type: $('input[name="type"]:checked').val() || 'default',
+        category: $('input[name="category"]:checked').val() || 'default',
+        priority: $('input[name="priority"]:checked').val() || 'default',
+        status: $('input[name="status"]:checked').val() || 'default',
+        owner: $('input[name="owner"]:checked').val() || 'default',
+      };
+
+      localStorage.setItem('ticketFilters', JSON.stringify(filters));
+    }
+
+    function getFilters() {
+      return JSON.parse(localStorage.getItem('ticketFilters')) || {};
+    }
+
+    loadFilters();
+    form.on('click', saveFilters);
+    form.on('change', 'input[type="radio"]', saveFilters);
+
+    $('#search_form').on('submit', function (e) {
+      e.preventDefault();
+
+      let localFilters = '';
+      $.each(getFilters(), function (key, value) {
+        localFilters = localFilters + key + '=' + value + '&';
+      });
+
+      alert(localFilters);
+
+      if (localFilters === '') {
+        window.location.href = form.attr('action');
+      } else {
+        window.location.href = form.attr('action') + '?' + localFilters;
+      }
+    });
+  });
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade modal-slide-up" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable align-content-end"> <!-- Habilita el scroll -->
+    <div class="modal-content">
+      <form id="search_form" method="POST" action="<?= urlRedirect("/tickets") ?>">
+        <input type="hidden" name="_method" value="GET">
+
+        <!-- Encabezado del Modal -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+              <?= HELPER_getIcon('ui', "filter_tune"); ?> Filtros
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Cuerpo del Modal con Scroll -->
+        <div class="modal-body d-flex flex-column" style="max-height: 50dvh">
+
+          <!-- Tipo -->
+          <h6 class="mb-3">Tipo</h6>
+          <div class="btn-group-toggle d-flex flex-wrap gap-2" data-toggle="buttons">
+              <?php foreach ($ticketTypes as $value => $label): ?>
+                <label class="btn btn-outline-dark px-1 py-1 rounded-3">
+                  <input type="radio" name="type" value="<?= htmlspecialchars($value) ?>" autocomplete="off">
+                    <?= htmlspecialchars($label) ?>
+                </label>
+              <?php endforeach; ?>
+          </div>
+
+          <!-- Categoría -->
+          <h6 class="mt-4 mb-3">Categoría</h6>
+          <div class="btn-group-toggle d-flex flex-wrap gap-2" data-toggle="buttons">
+              <?php foreach ($ticketCategories as $value => $label): ?>
+                <label class="btn btn-outline-dark px-1 py-1 rounded-3">
+                  <input type="radio" name="category" value="<?= htmlspecialchars($value) ?>" autocomplete="off">
+                    <?= htmlspecialchars($label) ?>
+                </label>
+              <?php endforeach; ?>
+          </div>
+
+          <!-- Prioridad -->
+          <h6 class="mt-4 mb-3">Prioridad</h6>
+          <div class="btn-group-toggle d-flex flex-wrap gap-2" data-toggle="buttons">
+              <?php foreach ($ticketPriorities as $value => $label): ?>
+                <label class="btn btn-outline-dark px-1 py-1 rounded-3">
+                  <input type="radio" name="priority" value="<?= htmlspecialchars($value) ?>" autocomplete="off">
+                    <?= htmlspecialchars($label) ?>
+                </label>
+              <?php endforeach; ?>
+          </div>
+
+        </div>
+
+        <!-- Pie del Modal -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary rounded-3" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary rounded-3">Aplicar Filtros</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
