@@ -7,7 +7,7 @@ const APPLICATION_VERSION = '0.2-alpha';
 if (IS_PRODUCTION_ENV) {
     define('BASE_ROUTE', '/sos/simple-tickets');
 } else {
-    define('BASE_ROUTE', '/');
+    define('BASE_ROUTE', '');
 }
 
 use Core\Session;
