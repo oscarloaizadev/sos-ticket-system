@@ -2,10 +2,13 @@
 
 namespace Core;
 
+use Core\Database;
+use Core\Session;
+
 class Authenticator
 {
     
-    public function authorize($condition, $status = Response::FORBIDDEN)
+    public function authorize($condition, $status = 403)
     {
         if (!$condition) {
             abort($status);
@@ -14,30 +17,29 @@ class Authenticator
         return true;
     }
     
-    public function attempt($username, $password)
+    public function attempt($identifier, $password)
     {
-        $query = 'SELECT id, username, email, password, role, company_id
+        $query = 'SELECT id, username, email, password, role, company_id, session_token
                   FROM users
                   WHERE email = :email OR username = :username';
         
         $user = App::resolve(Database::class)
             ->query($query, [
-                'username' => $username,
-                'email'    => $username,
+                'email'    => $identifier,
+                'username' => $identifier,
             ])->find();
         
-        if ($user) {
-            if (password_verify($password, $user['password'])) {
-                $this->login([
-                                 'id'         => $user['id'],
-                                 'username'   => $user['username'],
-                                 'email'      => $user['email'],
-                                 'role'       => $user['role'],
-                                 'company_id' => $user['company_id'],
-                             ]);
-                
-                return true;
-            }
+        if ($user && password_verify($password, $user['password'])) {
+            $this->login([
+                             'id'         => $user['id'],
+                             'username'   => $user['username'],
+                             'email'      => $user['email'],
+                             'role'       => $user['role'],
+                             'company_id' => $user['company_id'],
+                             'token'      => $user['session_token'],
+                         ]);
+            
+            return true;
         }
         
         return false;
@@ -52,6 +54,9 @@ class Authenticator
             ['token' => $token, 'id' => $user['id']],
         );
         
+        session_start();
+        session_regenerate_id(true);
+        
         $_SESSION['user'] = [
             'id'         => $user['id'],
             'username'   => $user['username'],
@@ -60,8 +65,6 @@ class Authenticator
             'company_id' => $user['company_id'],
             'token'      => $token,
         ];
-        
-        session_regenerate_id(true);
     }
     
     public function logout()

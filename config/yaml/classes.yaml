@@ -1,0 +1,19 @@
+badge:
+  uncategorized: bg-ticket-uncategorized text-dark
+  in_progress: bg-ticket-in-progress text-dark
+  pending: bg-ticket-pending text-dark
+  resolved: bg-ticket-resolved text-dark
+  closed: bg-ticket-closed text-dark
+  denied: bg-ticket-denied text-dark
+  white: bg-white text-dark
+  dark: bg-dark text-white
+
+status:
+  uncategorized: bg-ticket-uncategorized-subtle
+  in_progress: bg-ticket-in-progress-subtle
+  pending: bg-ticket-pending-subtle
+  resolved: bg-ticket-resolved-subtle
+  closed: bg-ticket-closed-subtle
+  denied: bg-ticket-denied-subtle
+  white: bg-white-subtle
+  dark: bg-dark-subtle

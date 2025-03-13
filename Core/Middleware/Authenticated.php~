@@ -1,0 +1,21 @@
+<?php
+
+namespace Core\Middleware;
+
+use Core\Authenticator;
+
+class Authenticated
+{
+    
+    public function handle()
+    {
+        if (!isset($_SESSION['user']) || trim($_SESSION['user']) === '') {
+            if (trim($_SESSION['user']) === '') {
+                (new Authenticator())->logout();
+            }
+            header('Location: ' . BASE_ROUTE . '/login');
+            exit();
+        }
+    }
+    
+}

@@ -9,6 +9,11 @@ function dd($value)
     die();
 }
 
+function formatDate($value)
+{
+    return date('d/m/Y - H:i', strtotime($value));
+}
+
 function urlIs($value)
 {
     return $_SERVER['REQUEST_URI'] === $value;
@@ -78,4 +83,24 @@ function urlRedirect($path = '')
 function old($key, $default = '')
 {
     return Core\Session::get('old')[$key] ?? $default;
+}
+
+function HELPER_getClass($type, $key)
+{
+    return Core\Helper::getClass($type, $key);
+}
+
+function HELPER_getText($type, $key)
+{
+    return Core\Helper::getText($type, $key);
+}
+
+function HELPER_getIcon($type, $key)
+{
+    return Core\Helper::getIcon($type, $key);
+}
+
+function HELPER_getArray($file, $type)
+{
+    return Core\Helper::getArray($file, $type);
 }

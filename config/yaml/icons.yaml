@@ -1,0 +1,50 @@
+ui:
+  back: <span class="material-symbols-rounded fs-5 align-content-center">arrow_back</span>
+  forward: <span class="material-symbols-rounded fs-5 align-content-center">arrow_forward</span>
+  home: <span class="material-symbols-rounded fs-5 align-content-center">home</span>
+  add: <span class="material-symbols-rounded fs-5 align-content-center">add</span>
+  edit: <span class="material-symbols-rounded fs-5 align-content-center">edit_square</span>
+  delete: <span class="material-symbols-rounded fs-5 align-content-center">delete</span>
+  close: <span class="material-symbols-rounded fs-5 align-content-center">close</span>
+  save: <span class="material-symbols-rounded fs-5 align-content-center">save</span>
+  cancel: <span class="material-symbols-rounded fs-5 align-content-center">cancel</span>
+  send: <span class="material-symbols-rounded fs-5 align-content-center">send</span>
+  keyboard_arrow_down: <span class="material-symbols-rounded fs-5 align-content-center">keyboard_arrow_down</span>
+  filter_tune: <span class="material-symbols-rounded fs-5 align-content-center">tune</span>
+  menu: <span class="material-symbols-rounded fs-5 align-content-center">menu</span>
+  search: <span class="material-symbols-rounded fs-5 align-content-center">search</span>
+
+
+status:
+  uncategorized: <span class="material-symbols-rounded fs-5 align-content-center">category</span>
+  in_progress: <span class="material-symbols-rounded fs-5 align-content-center">pending_actions</span>
+  pending: Pendiente
+  resolved: Resuelto
+  closed: Cerrado
+  denied: Denegado
+
+priority:
+  low: Baja
+  moderate: Moderada
+  medium: Media
+  high: Alta
+  urgent: Urgente
+
+ticket_types:
+  not_defined: No definido
+  incident: Ticket de Incidente
+  problem: Ticket de Problema
+  service_request: Ticket de Solicitud de Servicio
+  change: Ticket de Cambio
+  task: Ticket de Tarea
+  meeting: Ticket de Reuniones
+
+ticket_categories:
+  user: Usuario
+  hardware: Hardware
+  software: Software
+  network: Redes
+  server: Servidor
+  security: Seguridad
+  cloud_services: Servicios en la nube
+  other: Otros

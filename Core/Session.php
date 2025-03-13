@@ -12,34 +12,33 @@ class Session
     
     public static function isValid()
     {
-        if (self::get('user', 'token') === null) {
+        if (!isset($_SESSION['user'])) {
             self::destroy();
-        } else {
-            $dbToken = App::resolve(Database::class)->query(
-                "SELECT session_token FROM users
-                   WHERE id = :id AND
-                   username = :username AND
-                   email = :email AND
-                   role = :role AND
-                   company_id = :company_id",
-                [
-                    'id'         => $_SESSION['user']['id'],
-                    'username'   => $_SESSION['user']['username'],
-                    'email'      => $_SESSION['user']['email'],
-                    'role'       => $_SESSION['user']['role'],
-                    'company_id' => $_SESSION['user']['company_id'],
-                ],
-            )->findOrTrowError();
             
-            return hash_equals($dbToken['session_token'], $_SESSION['user']['token']);
+            return false;
         }
         
-        return true;
-    }
-    
-    public static function get($key, $value = '_flash', $default = null)
-    {
-        return $_SESSION[$value][$key] ?? $_SESSION[$key] ?? $default;
+        try {
+            $dbToken = App::resolve(Database::class)->query(
+                "SELECT session_token FROM users WHERE id = :id",
+                ['id' => $_SESSION['user']['id']],
+            )->find();
+            
+            if (!isset($dbToken['session_token'])) {
+                self::destroy();
+                
+                return false;
+            }
+            
+            return hash_equals(
+                $dbToken['session_token'],
+                $_SESSION['user']['token'] ?? '',
+            );
+        } catch (Exception $e) {
+            self::destroy();
+            
+            return false;
+        }
     }
     
     public static function destroy()
@@ -64,9 +63,20 @@ class Session
         return (bool) static::get($key);
     }
     
+    public static function get($key, $value = '_flash', $default = null)
+    {
+        return $_SESSION[$value][$key] ?? $_SESSION[$key] ?? $default;
+    }
+    
     public static function getUser()
     {
-        return $_SESSION['user'] ?? null;
+        if (isset($_SESSION['user'])) {
+            return $_SESSION['user'];
+        } elseif (isset($_SESSION['user'])) {
+            static::isValid();
+        }
+        
+        return null;
     }
     
     public static function isUserAdmin()

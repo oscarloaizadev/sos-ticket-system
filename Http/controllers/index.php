@@ -12,18 +12,27 @@ $auth = new Authenticator();
 
 $user = $session->getUser();
 
-//$query = 'SELECT * FROM tickets WHERE requester_id = :id';
-//$tickets = $db->query($query, ['id' => $user['id']])->get();
-
 $query = 'SELECT status, COUNT(*) as count FROM tickets WHERE assigned_to = :id GROUP BY status';
 $assignedTickets = $db->query($query, ['id' => $user['id']])->get();
+
+$totalAssignedTickets = 0;
+foreach ($assignedTickets as $ticket) {
+    $totalAssignedTickets += $ticket['count'];
+}
 
 $query = 'SELECT status, COUNT(*) as count FROM tickets WHERE requester_id = :id GROUP BY status';
 $requesterTickets = $db->query($query, ['id' => $user['id']])->get();
 
+$totalRequesterTickets = 0;
+foreach ($requesterTickets as $ticket) {
+    $totalRequesterTickets += $ticket['count'];
+}
+
 view("index.view.php", [
-    'heading'          => 'Inicio',
-    'user'             => $user,
-    'assignedTickets'  => $assignedTickets,
-    'requesterTickets' => $requesterTickets,
+    'heading'               => 'Inicio',
+    'user'                  => $user,
+    'assignedTickets'       => $assignedTickets,
+    'totalAssignedTickets'  => $totalAssignedTickets,
+    'requesterTickets'      => $requesterTickets,
+    'totalRequesterTickets' => $totalRequesterTickets,
 ]);

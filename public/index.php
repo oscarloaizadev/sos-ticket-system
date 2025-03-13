@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Bogota');
+
 const IS_PRODUCTION_ENV = true;
 const APPLICATION_VERSION = '0.2-alpha';
 

@@ -1,0 +1,23 @@
+<?php
+
+if (true) {
+    var_dump([
+                 'database' => [
+                     'host'     => '127.0.0.1',
+                     'dbname'   => 'mvc_emtelco',
+                     'username' => 'root',
+                     'password' => '',
+                     'charset'  => 'utf8mb4',
+                 ],
+             ]);
+} else {
+    return [
+        'database' => [
+            "host"     => "servidor-aws",
+            "dbname"   => "mvc_emtelco",
+            "username" => "root",
+            "password" => "abc123",
+            'charset'  => 'utf8mb4',
+        ],
+    ];
+}

@@ -1,12 +1,8 @@
 <?php
-include('shared/Badges.variables.php');
-include('shared/Translations.variables.php');
-
-$class = $statusColors[$status] ?? false;
+$class = HELPER_getClass('badge', $status);
+$text = isset($text) ? $text : (HELPER_getText('status', $status) ? : $status);
 ?>
 
 <?php if ($class): ?>
-  <span class="badge <?= $class ?> text-dark align-content-center text-center">
-        <?= $statusTranslations[$status] ?? 'Desconocido' ?>
-    </span>
+  <span class="badge <?= $class ?>"><?= $text ?></span>
 <?php endif; ?>

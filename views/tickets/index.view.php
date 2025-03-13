@@ -3,11 +3,10 @@ require base_path('views/partials/head.php');
 require base_path('views/partials/nav.php');
 ?>
 
-  <main class="container px-0 my-4">
+  <main>
       <?php component('TicketsList.php', [
-          'title'   => "Estado de tus solicitudes",
+          'title'   => $title,
           'tickets' => $tickets,
-          'type'    => $type,
       ]) ?>
   </main>
 <?php

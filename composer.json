@@ -1,5 +1,5 @@
 {
-  "name": "ticket-system",
+  "name": "sossolucionesinformaticas/ticket-system",
   "authors": [
     {
       "name": "Oscar Loaiza",
@@ -8,20 +8,13 @@
   ],
   "require": {
     "illuminate/collections": "^10.9",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "symfony/yaml": "^6.3"
   },
   "autoload": {
     "psr-4": {
       "Core\\": "Core/",
       "Http\\": "Http/"
-    }
-  },
-  "require-dev": {
-    "pestphp/pest": "^2.5"
-  },
-  "config": {
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
     }
   }
 }

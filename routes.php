@@ -8,6 +8,7 @@ $router->get('/contact', 'contact.php');
 $router->get('/tickets', 'tickets/index.php')->only("auth");
 $router->get('/ticket/new', 'tickets/create.php')->only("auth");
 $router->post('/ticket/store', 'tickets/store.php')->only('auth');
+$router->post('/ticket/update', 'tickets/update.php')->only("auth");
 $router->get('/ticket', 'tickets/show.php')->only("auth");
 
 $router->get('/notes', 'notes/index.php')->only('auth');

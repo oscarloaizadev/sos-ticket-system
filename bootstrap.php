@@ -18,15 +18,9 @@ $container = new Container();
  * @return void
  */
 $container->bind('Core\\Database', function () {
-    $config = require base_path('config.php');
+    $config = require base_path('config/connection/config.php');
     
     return new Database($config['database']);
-});
-
-$container->bind('Htpp\\Services\\LDAPService', function () {
-    $config = require base_path('Http/Services/LDAPService/config/config.php');
-    
-    return new \App\Services\LDAPService($config['database']);
 });
 
 // Asocia la instancia del contenedor a la clase App para acceso global.
