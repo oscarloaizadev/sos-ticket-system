@@ -1,13 +1,13 @@
 <?php
 date_default_timezone_set('America/Bogota');
 
-const IS_PRODUCTION_ENV = true;
+const IS_PRODUCTION_ENV = false;
 const APPLICATION_VERSION = '0.2-alpha';
 
 if (IS_PRODUCTION_ENV) {
     define('BASE_ROUTE', '/sos/simple-tickets');
 } else {
-    define('BASE_ROUTE', '/ruta/del/servidor');
+    define('BASE_ROUTE', '/');
 }
 
 use Core\Session;
@@ -32,10 +32,8 @@ try {
 } catch (ValidationException $exception) {
     Session::flash('errors', $exception->errors);
     Session::flash('old', $exception->old);
-    
+
     return redirect($router->previousUrl());
 }
 
 Session::unflash();
-
-
