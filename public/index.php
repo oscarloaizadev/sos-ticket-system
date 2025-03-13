@@ -2,7 +2,7 @@
 date_default_timezone_set('America/Bogota');
 
 const IS_PRODUCTION_ENV = false;
-const APPLICATION_VERSION = '0.2-alpha';
+const APPLICATION_VERSION = '0.3-130325-alpha';
 
 if (IS_PRODUCTION_ENV) {
     define('BASE_ROUTE', '/sos/simple-tickets');

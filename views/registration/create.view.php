@@ -1,9 +1,9 @@
 <?php require base_path('views/partials/head.php') ?>
 
 <main
-  class="container p-4 p-md-0 m-0 d-flex flex-column flex-grow-1 min-vw-100 h-sm-min-dvh align-items-center justify-content-center">
-  <div class="sm-flex-grow-1 h-100 shadow-sm bg-white rounded-4 overflow-hidden align-content-center">
-    <form class="shadow-sm rounded-4 overflow-hidden"
+  class="container p-4 m-0 d-flex flex-column flex-grow-1 min-vw-100 h-sm-min-dvh align-items-center justify-content-center bg-gradient-sos">
+  <div class="sm-flex-grow-1 h-auto h-sm-min-dvh shadow-sm bg-white rounded-4 overflow-hidden align-content-center">
+    <form class="shadow-sm rounded-4 overflow-auto h-100 align-content-center"
           method="POST"
           action="<?= urlRedirect("/register") ?>">
       <div class="d-flex flex-column gap-4 bg-white p-5">
@@ -99,5 +99,3 @@
     </form>
   </div>
 </main>
-
-<?php require base_path('views/partials/footer.php') ?>
