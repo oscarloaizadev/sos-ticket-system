@@ -46,6 +46,12 @@ if ($owner === '0') {
     $conditions[] = 'assigned_to = :assigned_to';
     $params['assigned_to'] = $user['id'];
     $title = 'Tickets asignados para tu gestión';
+} elseif ($owner === 'unassigned'
+    && ($user['role'] === 'admin' || $user['role'] === 'technician'
+        || $user['role'] === 'super_user')
+) {
+    $conditions[] = 'assigned_to IS NULL';
+    $title = 'Tickets sin un técnico asignado';
 } else {
     $conditions[] = 'requester_id = :id';
     $params['id'] = $user['id'];
@@ -61,7 +67,7 @@ $query .= ' ORDER BY created_at DESC';
 $tickets = $db->query($query, $params)->get();
 
 view("tickets/index.view.php", [
-    'title'   => $title,
-    'user'    => $user,
+    'title' => $title,
+    'user' => $user,
     'tickets' => $tickets,
 ]);

@@ -17,6 +17,9 @@ $id = htmlspecialchars($_GET['id']);
 $query = 'SELECT * FROM tickets WHERE id = :id';
 $ticket = $db->query($query, ['id' => $id])->findOrFail();
 
+$query = 'SELECT name FROM companies WHERE id = :id';
+$company = $db->query($query, ['id' => $ticket["company_id"]])->find();
+
 $query = 'SELECT * FROM users WHERE id = :assigned_to';
 $assignedTo = $db->query($query, ['assigned_to' => $ticket["assigned_to"]])->find();
 
@@ -38,6 +41,7 @@ $technicians = $db->query($query, ['technician' => 'technician', 'super_user' =>
 view("tickets/show.view.php", [
     'heading'       => 'Mis tickets',
     'user'          => $user,
+    'company'       => $company,
     'ticket'        => $ticket,
     'ticketHistory' => $ticketHistory,
     'assignedTo'    => $assignedTo,

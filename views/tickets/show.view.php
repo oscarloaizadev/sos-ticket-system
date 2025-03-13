@@ -43,7 +43,8 @@ unset($ticketStatus['not_defined']);
   <main>
     <section class="container p-3 bg-light rounded-4 shadow-sm border border-light">
       <div class="row row-cols-2 lh-sm" style="row-gap: 0.5rem">
-        <div class="col col-12"><b class="d-block">Asunto</b> <?= htmlspecialchars($ticket["subject"]); ?></div>
+        <div class="col"><b class="d-block">Asunto</b> <?= htmlspecialchars($ticket["subject"]); ?></div>
+        <div class="col"><b class="d-block">Compañía</b> <?= htmlspecialchars($company["name"]); ?></div>
         <div class="col"><b class="d-block">Fecha de
             solicitud</b> <?= htmlspecialchars(formatDate($ticket["request_date"])); ?>
         </div>
@@ -74,10 +75,10 @@ unset($ticketStatus['not_defined']);
                   <?php
                   component("HistoryMessages.php",
                             [
-                                "history" => $history,
-                                "user" => $user,
+                                "history"    => $history,
+                                "user"       => $user,
                                 "assignedTo" => $assignedTo,
-                                "requester" => $requester,
+                                "requester"  => $requester,
                             ]);
                   ?>
               <?php endforeach; ?>

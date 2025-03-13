@@ -27,6 +27,7 @@ class RegisterForm
             $this->errors['email'] = 'Please provide a valid email address.';
         }
         */
+        
         if (!Validator::string($attributes['username'], 6, 255)) {
             $this->errors['username'] = 'El usuario de red debe ser mayor a 6 caracteres.';
         }

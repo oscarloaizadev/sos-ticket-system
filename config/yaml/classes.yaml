@@ -4,9 +4,10 @@ badge:
   pending: bg-ticket-pending text-dark
   resolved: bg-ticket-resolved text-dark
   closed: bg-ticket-closed text-dark
-  denied: bg-ticket-denied text-dark
+  denied: bg-ticket-denied text-white
   white: bg-white text-dark
   dark: bg-dark text-white
+  info: bg-info text-info-emphasis
 
 status:
   uncategorized: bg-ticket-uncategorized-subtle

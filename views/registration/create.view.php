@@ -1,6 +1,7 @@
 <?php require base_path('views/partials/head.php') ?>
 
-<main class="container p-4 p-md-0 m-0 d-flex flex-column flex-grow-1 min-vw-100 h-sm-min-dvh align-items-center justify-content-center">
+<main
+  class="container p-4 p-md-0 m-0 d-flex flex-column flex-grow-1 min-vw-100 h-sm-min-dvh align-items-center justify-content-center">
   <div class="sm-flex-grow-1 h-100 shadow-sm bg-white rounded-4 overflow-hidden align-content-center">
     <form class="shadow-sm rounded-4 overflow-hidden"
           method="POST"
@@ -13,6 +14,17 @@
             <?= $heading ?>
         </div>
         <hr class="my-1">
+        <div>
+          <label for="name" class="form-label">Nombre completo</label>
+          <input id="name"
+                 name="name"
+                 type="text"
+                 autocomplete="name"
+                 required
+                 class="form-control"
+                 placeholder="Jhon Doe"
+                 value="<?= old('name') ?>">
+        </div>
         <div>
           <label for="username" class="form-label">Usuario de red</label>
           <input id="username"
@@ -77,7 +89,9 @@
             <span class="material-symbols-rounded fs-5 align-content-center">person_add</span>
             Regístrate
           </button>
-          <a class="text-center link-offset-1 link-offset-2-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="<?= urlRedirect('/login') ?>">
+          <a
+            class="text-center link-offset-1 link-offset-2-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+            href="<?= urlRedirect('/login') ?>">
             ¿Ya tienes una cuenta? Inicia sesión aquí
           </a>
         </div>

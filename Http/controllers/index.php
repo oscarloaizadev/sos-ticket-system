@@ -28,6 +28,14 @@ foreach ($requesterTickets as $ticket) {
     $totalRequesterTickets += $ticket['count'];
 }
 
+$query = 'SELECT status, COUNT(*) as count FROM tickets WHERE assigned_to IS NULL GROUP BY status';
+$withoutAssigned = $db->query($query)->get();
+
+$totalWithoutAssigned = 0;
+foreach ($withoutAssigned as $ticket) {
+    $totalWithoutAssigned += $ticket['count'];
+}
+
 view("index.view.php", [
     'heading'               => 'Inicio',
     'user'                  => $user,
@@ -35,4 +43,6 @@ view("index.view.php", [
     'totalAssignedTickets'  => $totalAssignedTickets,
     'requesterTickets'      => $requesterTickets,
     'totalRequesterTickets' => $totalRequesterTickets,
+    'withoutAssigned'       => $withoutAssigned,
+    'totalWithoutAssigned'  => $totalWithoutAssigned,
 ]);

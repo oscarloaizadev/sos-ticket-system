@@ -19,7 +19,7 @@ class Authenticator
     
     public function attempt($identifier, $password)
     {
-        $query = 'SELECT id, username, email, password, role, company_id, session_token
+        $query = 'SELECT id, name, username, email, password, role, company_id, session_token
                   FROM users
                   WHERE email = :email OR username = :username';
         
@@ -30,13 +30,20 @@ class Authenticator
             ])->find();
         
         if ($user && password_verify($password, $user['password'])) {
+            $query = 'SELECT * FROM companies WHERE id = :company_id';
+            $company = App::resolve(Database::class)
+                ->query($query, ['company_id' => $user['company_id']])
+                ->find();
+            
             $this->login([
-                             'id'         => $user['id'],
-                             'username'   => $user['username'],
-                             'email'      => $user['email'],
-                             'role'       => $user['role'],
-                             'company_id' => $user['company_id'],
-                             'token'      => $user['session_token'],
+                             'id'           => $user['id'],
+                             'name'         => $user['name'],
+                             'username'     => $user['username'],
+                             'email'        => $user['email'],
+                             'role'         => $user['role'],
+                             'company_id'   => $user['company_id'],
+                             'company_name' => $company['name'],
+                             'token'        => $user['session_token'],
                          ]);
             
             return true;
@@ -59,10 +66,12 @@ class Authenticator
         
         $_SESSION['user'] = [
             'id'         => $user['id'],
+            'name'       => $user['name'],
             'username'   => $user['username'],
             'email'      => $user['email'],
             'role'       => $user['role'],
             'company_id' => $user['company_id'],
+            'company'    => $user['company_name'],
             'token'      => $token,
         ];
     }

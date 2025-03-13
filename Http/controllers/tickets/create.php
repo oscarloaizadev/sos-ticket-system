@@ -18,7 +18,7 @@ $requesterId = $user['id'];
 /* TODO:
     Hace falta definir adecuadamente el ID de la persona a la que se le va a asignar el ticket
 */
-$assignedTo = 3;
+$assignedTo = 0;
 
 $status = 'pending';
 

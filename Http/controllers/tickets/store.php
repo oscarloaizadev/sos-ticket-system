@@ -13,7 +13,9 @@ $auth = new Authenticator();
 $user = $session->getUser();
 
 try {
-    $requiredFields = ['subject', 'description', 'status', 'priority', 'requester_id', 'company_id', 'request_date'];
+    $requiredFields = [
+        'subject', 'description', 'status', 'type', 'category', 'priority', 'requester_id', 'company_id', 'request_date',
+    ];
     
     foreach ($requiredFields as $field) {
         if (!isset($_POST[$field]) || empty($_POST[$field])) {
@@ -24,6 +26,8 @@ try {
     
     $subject = htmlspecialchars($_POST['subject']);
     $description = htmlspecialchars($_POST['description']);
+    $type = htmlspecialchars($_POST['type']);
+    $category = htmlspecialchars($_POST['category']);
     $status = htmlspecialchars($_POST['status']);
     $priority = htmlspecialchars($_POST['priority']);
     $requesterId = (int) htmlspecialchars($_POST['requester_id']);
@@ -55,13 +59,15 @@ try {
     $code = $prefix . "-" . str_pad($newNumber, 4, "0", STR_PAD_LEFT);
     
     // Insertar el ticket en la base de datos
-    $query = "INSERT INTO tickets (code, subject, description, status, priority, requester_id, company_id, request_date)
-              VALUES (:code, :subject, :description, :status, :priority, :requesterId, :companyId, :requestDate)";
+    $query = "INSERT INTO tickets (code, subject, description, type, category, status, priority, requester_id, company_id, request_date)
+              VALUES (:code, :subject, :description, :type, :category, :status, :priority, :requesterId, :companyId, :requestDate)";
     
     $db->query($query, [
         'code'        => $code,
         'subject'     => $subject,
         'description' => $description,
+        'type'        => $type,
+        'category'    => $category,
         'status'      => $status,
         'priority'    => $priority,
         'requesterId' => $requesterId,
