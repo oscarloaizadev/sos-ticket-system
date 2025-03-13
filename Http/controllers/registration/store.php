@@ -39,13 +39,14 @@ if ($user) {
     header('location:' . BASE_ROUTE . '/register');
     exit();
 } else {
-    $query = 'INSERT INTO users(email, username, password, role)
-          VALUES(:email, :username, :password, :role)';
+    $query = 'INSERT INTO users(email, username, password, role, company_id)
+          VALUES(:email, :username, :password, :role, :company_id)';
     $user = $db->query($query, [
-        'email'    => $email,
-        'username' => $username,
-        'password' => password_hash($password, PASSWORD_BCRYPT),
-        'role'     => 'client',
+        'email'      => $email,
+        'username'   => $username,
+        'password'   => password_hash($password, PASSWORD_BCRYPT),
+        'role'       => 'client',
+        'company_id' => 2,
     ]);
     
     header('location:' . BASE_ROUTE . '/login');
