@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'sossolucionesinformaticas/ticket-system',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'abe15bf0f03f4fb1a0fbc13cafc1cc87d67f8c2a',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '369c82dafd368da00d79b1639f64cb43af061293',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -65,9 +65,9 @@
             'dev_requirement' => false,
         ),
         'sossolucionesinformaticas/ticket-system' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'abe15bf0f03f4fb1a0fbc13cafc1cc87d67f8c2a',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '369c82dafd368da00d79b1639f64cb43af061293',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
